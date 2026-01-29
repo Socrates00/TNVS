@@ -1,0 +1,232 @@
+:root {
+    --hero-green: #00b14f;
+    --hero-dark: #1a1a1a;
+    --hero-gray: #f8f9fa;
+}
+
+body { margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: #eee; }
+
+/* Floating Header */
+.header-wrapper {
+    position: fixed; top: 15px; left: 15px; right: 15px;
+    display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+}
+
+.pill-box {
+    background: white; display: flex; align-items: center;
+    padding: 0 18px; height: 50px; border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
+}
+
+.brand-group { display: flex; align-items: center; gap: 8px; }
+.brand-text { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; }
+.brand-text .highlight { color: var(--hero-green); }
+
+.profile-group { display: flex; gap: 10px; }
+.notif-badge {
+    width: 50px; height: 50px; background: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); color: #666;
+}
+
+.profile-ring {
+    width: 50px; height: 50px; background: var(--hero-dark); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; border: 2px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Bottom Booking Panel */
+.booking-sheet {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-radius: 30px 30px 0 0;
+    padding: 15px 20px 35px; z-index: 999;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+}
+
+.drag-handle { width: 45px; height: 5px; background: #e0e0e0; border-radius: 10px; margin: 0 auto 20px; }
+
+/* 5.1 & 4.1 Search Area */
+.search-container {
+    background: var(--hero-gray); border-radius: 20px; padding: 5px 15px;
+    margin-bottom: 20px; border: 1px solid #efefef;
+}
+
+.loc-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+.loc-item input { border: none; background: transparent; width: 100%; font-size: 15px; font-weight: 600; outline: none; }
+
+/* Ride Selection Cards */
+.ride-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 5px 0 20px; scrollbar-width: none; }
+.ride-scroll::-webkit-scrollbar { display: none; }
+
+.ride-card {
+    min-width: 130px; background: white; border: 2px solid #f0f0f0;
+    border-radius: 20px; padding: 15px; text-align: left; transition: 0.3s;
+}
+
+.ride-card.active { border-color: var(--hero-green); background: #f0fdf4; }
+.ride-card i { font-size: 24px; margin-bottom: 10px; display: block; color: var(--hero-dark); }
+.ride-card .name { display: block; font-size: 13px; font-weight: 700; color: #444; }
+.ride-card .price { display: block; font-size: 16px; font-weight: 800; color: var(--hero-dark); margin-top: 4px; }
+
+/* Confirm Button */
+.btn-confirm-booking {
+    width: 100%; background: var(--hero-green); color: white; border: none;
+    padding: 18px; border-radius: 20px; font-size: 16px; font-weight: 800;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 177, 79, 0.25);
+}
+
+/* I-paste mo ito sa customer.css */
+.header-wrapper {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pill-box {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* I-update ang vertical divider para hindi dikit na dikit */
+.vertical-divider {
+    width: 1px;
+    height: 20px;
+    background: #eee;
+    margin: 0 10px; /* Inayos mula sa -20px para magkaroon ng space */
+}
+
+/* Siguraduhin na ang brand group ay may sapat na gap */
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* Dikit pero hindi patong */
+}
+
+/* I-update ang main-logo-img properties */
+.main-logo-img {
+    height: 150px; /* Pinanatili ang size */
+    width: auto;
+    object-fit: contain;
+    /* Negative margin para pumasok pa lalo sa kaliwa ang logo */
+    margin-left: -50px; 
+    /* Negative margin sa kanan para dumikit sa ByaHERO text */
+    margin-right: -55px;
+}
+
+/* Siguraduhin na ang icon-btn ay hindi kumakain ng sobrang space */
+.icon-btn {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    min-width: 50px; /* Para madaling pindutin sa mobile */
+}
+
+/* PARA SA PROFILE CIRCLE SA KANAN: */
+.profile-group {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-ring {
+    width: 50px;
+    height: 50px;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Balik sa 150px na laki pero inayos ang spacing para sa back button */
+
+.main-logo-img {
+    height: 150px; /* Ibinabalik ang 150px na size mo */
+    width: auto;
+    object-fit: contain;
+    margin-right: -50px; /* Hila para dikit sa 'Bya' text */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    z-index: 1;
+}
+
+.pill-box {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 10px; /* Binawasan ang padding sa gilid */
+    height: 65px; /* Tinaasan natin para kumasya ang malaking logo nang hindi siksikan */
+    border-radius: -50px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    overflow: visible; /* Importante para hindi maputol ang 150px na logo */
+}
+
+.vertical-divider {
+    width: 1px;
+    height: 24px;
+    background: #eee;
+    margin: 0 12px; /* Nilakihan ang space para hindi mag-merge sa back button */
+}
+
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0px; /* 0 gap dahil hila na ng negative margin ang logo */
+}
+
+.brand-text {
+    font-size: 20px; /* Nilakihan ng konti para pantay sa malaking logo */
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Matching Overlay Style */
+.matching-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 2000;
+    display: flex; align-items: center; justify-content: center; color: white;
+}
+
+.loader-content { text-align: center; }
+.spinner {
+    width: 50px; height: 50px; border: 5px solid #fff;
+    border-top: 5px solid var(--hero-green); border-radius: 50%;
+    animation: spin 1s linear infinite; margin: 0 auto 20px;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Payment Selector Style */
+.payment-selector {
+    display: flex; align-items: center; gap: 8px; font-size: 14px;
+    padding: 10px 0; cursor: pointer; color: #666;
+}
+
+.map-surface {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%; /* Para hindi lubog sa booking sheet */
+    z-index: 1;
+    background: #e5e3df; /* Fallback color habang naglo-load */
+}

@@ -1,0 +1,112 @@
+:root {
+    --primary-green: #00b14f;
+    --bg-light: #f8f9fa;
+    --border-color: #e0e0e0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+}
+
+.main-header {
+    background: #fff;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-badge {
+    background: var(--primary-green);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.top-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-item.active {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.system-status {
+    background: #e6f7ed;
+    color: var(--primary-green);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Responsive Header */
+@media (max-width: 992px) {
+    .main-header {
+        padding: 0 15px;
+        height: 60px;
+    }
+    
+    .brand-name { font-size: 16px; }
+
+    .top-nav {
+        display: none; /* Itatago muna ang nav sa mobile */
+    }
+
+    .header-right .system-status {
+        display: none; /* Itatago ang status badge sa maliit na screen */
+    }
+}

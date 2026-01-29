@@ -1,0 +1,189 @@
+:root {
+    --hero-green: #00b14f;
+    --hero-dark: #0f172a;
+    --gray-soft: #f1f5f9;
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Inter', sans-serif; 
+    background: #ffffff; 
+    color: #1e293b; 
+    padding-bottom: 80px; 
+}
+
+/* Header Styling */
+.home-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 20px; 
+    background: white; 
+    border-bottom: 1px solid #f1f5f9;
+    height: 80px; /* Fixed height para kumasya ang malaking logo */
+    overflow: hidden;
+}
+
+.brand-group-home { 
+    display: flex; 
+    align-items: center; 
+    gap: 4px; /* Siniguro ang dikit na gap */
+}
+
+.home-logo-img { 
+    height: 150px; /* Nilakihan ang logo gaya ng request mo */
+    width: auto; 
+    object-fit: contain;
+    margin-right: -50px; /* Negative margin para sumandal ang text sa logo */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); 
+}
+
+.home-brand-text { 
+    font-weight: 900; 
+    font-size: 20px; 
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.home-brand-text .highlight { color: var(--hero-green); }
+
+.header-icons { display: flex; gap: 10px; }
+.notif-circle, .user-circle {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+.notif-circle { background: var(--gray-soft); color: #64748b; }
+.user-circle { background: var(--hero-dark); color: white; font-weight: 700; font-size: 13px; }
+
+/* Wallet Card */
+.main-container { padding: 0 20px; }
+.wallet-card {
+    background: var(--hero-dark); 
+    border-radius: 24px; 
+    padding: 20px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 20px; 
+    color: white;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+}
+.wallet-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+.wallet-balance { font-size: 26px; font-weight: 800; margin: 4px 0 0; }
+.topup-btn {
+    background: var(--hero-green); 
+    color: white; 
+    border: none;
+    padding: 10px 18px; 
+    border-radius: 12px; 
+    font-weight: 800; 
+    font-size: 12px;
+}
+
+/* Service Grid */
+.section-title { font-size: 16px; font-weight: 800; margin: 25px 0 15px; }
+.service-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; 
+}
+.service-item { 
+    text-decoration: none; 
+    color: inherit; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+}
+.service-icon {
+    width: 60px; 
+    height: 60px; 
+    border-radius: 18px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 24px;
+}
+.ride { background: #dcfce7; color: var(--hero-green); }
+.express { background: #fef9c3; color: #854d0e; }
+.fleet { background: #dbeafe; color: #1e40af; }
+.safety { background: #fee2e2; color: #b91c1c; }
+.service-item span { font-size: 12px; font-weight: 600; }
+
+/* Promo Banner */
+.promo-banner {
+    background: linear-gradient(135deg, #00b14f, #008a3d);
+    margin-top: 30px; 
+    border-radius: 20px; 
+    padding: 20px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    color: white;
+}
+.promo-text h4 { margin: 0; font-size: 16px; }
+.promo-text p { margin: 5px 0 0; font-size: 12px; opacity: 0.9; }
+.promo-icon { font-size: 40px; opacity: 0.3; }
+
+/* Bottom Nav */
+.bottom-nav {
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    height: 75px;
+    background: white; 
+    border-top: 1px solid #f1f5f9;
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center;
+    z-index: 1000;
+}
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94a3b8; }
+.nav-item.active { color: var(--hero-green); }
+.nav-item i { font-size: 20px; }
+.nav-item span { font-size: 10px; font-weight: 600; }
+
+body { 
+    margin: 0; 
+    font-family: 'Inter', sans-serif; 
+    /* I-set ang background image gamit ang "homebg" */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('homebg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #1e293b; 
+    padding-bottom: 80px; 
+}
+
+/* 2. Pag-urong ng Logo sa Kaliwa (Home) */
+.home-header {
+    padding: 0 10px; /* Sagad sa gilid */
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent para kita ang bg */
+    backdrop-filter: blur(5px);
+}
+
+.home-logo-img { 
+    height: 150px; /* Pinanatili ang 150px */
+    width: auto; 
+    object-fit: contain;
+    margin-left: -35px; /* Ito ang nag-uurong sa kaliwa */
+    margin-right: -55px; /* Dikit sa ByaHERO text */
+    /* ... existing properties ... */
+    cursor: pointer;
+}
+
+/* 3. Pag-urong ng Logo sa Kaliwa (Customer/Booking) */
+/* I-apply ito sa customer.css mo: */
+.main-logo-img {
+    height: 150px;
+    width: auto;
+    margin-left: -25px; /* Urong sa kaliwa para hindi dikit sa back button */
+    margin-right: -55px;
+}
