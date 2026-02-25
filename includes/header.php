@@ -4,196 +4,100 @@ $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <style>
     :root {
-        --hero-green: #00b14f; /* Official ByaHERO Green */
+        --hero-green: #00b14f;
         --text-dark: #1a1a1a;
         --text-gray: #666;
         --bg-white: #ffffff;
+        --sidebar-width: 260px;
     }
 
-    .main-header {
-        background: var(--bg-white);
-        height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 25px;
-        border-bottom: 1px solid #eee;
-        font-family: 'Inter', sans-serif;
-        position: sticky;
+    /* Sidebar layout for admin pages */
+    .sidebar {
+        position: fixed;
+        left: 0;
         top: 0;
-        z-index: 1000;
-    }
-
-    .logo-section {
+        bottom: 0;
+        width: var(--sidebar-width);
+        background: #1a1a1a;
+        border-right: 1px solid #333;
+        padding: 24px 20px;
         display: flex;
-        align-items: center;
-        gap: 8px;
+        flex-direction: column;
+        gap: 18px;
+        z-index: 1100;
+        font-family: 'Inter', sans-serif;
     }
 
-    .logo-img {
-        height: 200px; /* Hindi binago gaya ng instruction mo */
-        width: auto;
-        margin-right: -50px; 
-        margin-left: -50px;
-    }
-
-    .brand-name {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--text-dark);
-        letter-spacing: -0.5px;
-        white-space: nowrap;
-    }
-
-    .brand-name span {
-        font-weight: 400;
-        color: var(--text-gray);
-    }
-
-    .top-nav {
+    .sidebar .brand {
         display: flex;
-        gap: 5px;
-        background: #f8fafb;
-        padding: 5px;
-        border-radius: 12px;
+        flex-direction: column;
         align-items: center;
+        gap: 6px;
+        text-align: center;
     }
 
-    /* Style para sa bagong Back Button */
-    .back-nav {
-        text-decoration: none;
-        color: #e74c3c; /* Reddish para madaling makita */
-        font-size: 14px;
-        font-weight: 700;
-        padding: 10px 15px;
-        border-right: 1px solid #ddd;
-        margin-right: 5px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: 0.3s;
-    }
+    .sidebar .logo-img { height: 150px; width: auto; }
 
-    .back-nav:hover {
-        color: #c0392b;
-    }
+    .sidebar .brand-name { font-weight: 800; font-size: 18px; color: #fff; }
 
-    .nav-item {
-        text-decoration: none;
-        color: var(--text-gray);
-        font-size: 14px;
-        font-weight: 600;
-        padding: 10px 18px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: 0.3s;
-    }
+    .sidebar-nav { display:flex; flex-direction:column; gap:6px; margin-top: 12px; }
 
-    .nav-item i {
-        font-size: 16px;
-    }
+    .sidebar-nav a { text-decoration:none; color:#aaa; padding:12px 14px; border-radius:10px; display:flex; align-items:center; gap:10px; font-weight:700; transition:0.2s; }
 
-    .nav-item.active {
-        background: var(--bg-white);
-        color: var(--hero-green);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+    .sidebar-nav a:hover { color:#fff; background:rgba(255,255,255,0.05); }
 
-    .nav-item:hover:not(.active) {
-        color: var(--hero-green);
-        background: rgba(0, 177, 79, 0.05);
-    }
+    .sidebar-nav a i { width:18px; text-align:center; }
 
-    .header-right {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
+    .sidebar-nav a.active { background: var(--hero-green); color:#fff; }
 
-    .system-status {
-        background: #e8fdf0;
-        color: var(--hero-green);
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-    }
+    .sidebar .spacer { flex:1; }
 
-    .user-profile {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        border-left: 1px solid #eee;
-        padding-left: 20px;
-    }
+    .sidebar .system-status { background: rgba(0,177,79,0.2); color: var(--hero-green); padding:8px 12px; border-radius:12px; font-weight:800; font-size:12px; }
 
-    .avatar {
-        width: 38px;
-        height: 38px;
-        background: var(--hero-green);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 14px;
-    }
+    .sidebar .profile-row { display:flex; align-items:center; gap:12px; }
 
-    .user-info {
-        line-height: 1.3;
-    }
+    .sidebar .avatar { width:44px; height:44px; border-radius:50%; background:var(--hero-green); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
 
-    .admin-name {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--text-dark);
-    }
+    .sidebar .admin-meta { font-size:13px; color:#fff; }
 
-    .admin-role {
-        font-size: 11px;
-        color: var(--text-gray);
+    .sidebar .logout-link { margin-top:8px; display:inline-block; text-decoration:none; color:#e74c3c; font-weight:800; padding:8px 10px; border-radius:8px; border:1px solid #e74c3c; background:transparent; transition:0.2s; }
+
+    .sidebar .logout-link:hover { background:#e74c3c; color:#fff; }
+
+    /* Shift page content to the right to make room for the sidebar */
+    body { margin-left: var(--sidebar-width); }
+
+    /* Responsive: collapse sidebar on small screens */
+    @media (max-width: 900px) {
+        .sidebar { position:relative; width:100%; height:auto; border-right:none; flex-direction:row; align-items:center; padding:12px; }
+        .sidebar-nav { flex-direction:row; gap:8px; margin-left:12px; }
+        body { margin-left:0; }
     }
 </style>
 
-<header class="main-header">
-    <div class="logo-section">
+<aside class="sidebar" aria-label="Admin navigation">
+    <div class="brand">
         <img src="logo.png" class="logo-img" alt="ByaHERO">
-        <span class="brand-name">ByaHERO <span>Admin Panel</span></span>
+        <div class="brand-name">ByaHERO <div style="font-weight:400;color:var(--text-gray);font-size:12px">Admin Panel</div></div>
     </div>
 
-    <nav class="top-nav">
-        <a href="home.php" class="back-nav">
-            <i class="fas fa-arrow-left"></i> Home
-        </a>
-
-        <a href="index.php" class="nav-item <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">
-            <i class="fas fa-th-large"></i> Fleet Dashboard
-        </a>
-        <a href="dispatching.php" class="nav-item <?php echo ($current_page == 'dispatching.php') ? 'active' : ''; ?>">
-            <i class="fas fa-taxi"></i> Taxi Dispatching
-        </a>
-        <a href="tracking.php" class="nav-item <?php echo ($current_page == 'tracking.php') ? 'active' : ''; ?>">
-            <i class="fas fa-map-marker-alt"></i> Real-time Tracking
-        </a>
-        <a href="payments.php" class="nav-item <?php echo ($current_page == 'payments.php') ? 'active' : ''; ?>">
-            <i class="fas fa-file-invoice-dollar"></i> Payment Mgmt
-        </a>
+    <nav class="sidebar-nav">
+        <a href="admin.php" class="<?php echo ($current_page == 'admin.php') ? 'active' : ''; ?>"><i class="fas fa-th-large"></i> Dashboard</a>
+        <a href="dispatching.php" class="<?php echo ($current_page == 'dispatching.php') ? 'active' : ''; ?>"><i class="fas fa-taxi"></i> Dispatching</a>
+        <a href="tracking.php" class="<?php echo ($current_page == 'tracking.php') ? 'active' : ''; ?>"><i class="fas fa-map-marker-alt"></i> Tracking</a>
+        <a href="payments.php" class="<?php echo ($current_page == 'payments.php') ? 'active' : ''; ?>"><i class="fas fa-file-invoice-dollar"></i> Payments</a>
     </nav>
 
-    <div class="header-right">
-        <span class="system-status">● SYSTEM LIVE</span>
-        <i class="far fa-bell" style="color: var(--text-gray); font-size: 18px; cursor: pointer;"></i>
-        
-        <div class="user-profile">
-            <div class="avatar">AU</div>
-            <div class="user-info">
-                <div class="admin-name">Admin User</div>
-                <div class="admin-role">Admin</div>
-            </div>
+    <div class="spacer"></div>
+
+    <div class="system-status">● SYSTEM LIVE</div>
+
+    <div class="profile-row">
+        <div class="avatar">AU</div>
+        <div class="admin-meta">
+            <div style="font-weight:800;color:#fff">Admin User</div>
+            <div style="font-size:12px;color:#fff">Admin</div>
         </div>
     </div>
-</header>
+    <a href="logout.php" class="logout-link">Logout</a>
+</aside>

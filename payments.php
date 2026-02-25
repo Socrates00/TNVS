@@ -1,3 +1,191 @@
+<<<<<<< HEAD
+<?php
+session_start();
+// Security check para admin lang
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+<?php include('includes/header.php'); ?>
+
+<link rel="stylesheet" href="dashboard.css">
+
+<main class="container">
+    <div class="header-flex">
+        <h1 class="dashboard-title">Payment Management</h1>
+        <div class="system-badge">SYSTEM LIVE</div>
+    </div>
+
+    <!-- Revenue Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">Today's Revenue</span>
+            <span class="stat-value">₱24,500</span>
+            <span class="stat-trend trend-up">↑ 12% vs yesterday</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Transactions</span>
+            <span class="stat-value">189</span>
+            <span class="stat-sub">156 Completed</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Pending Payments</span>
+            <span class="stat-value">3</span>
+            <span class="stat-trend trend-new">Requires review</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Refund Requests</span>
+            <span class="stat-value">2</span>
+            <span class="stat-sub">Processing</span>
+        </div>
+    </div>
+
+    <!-- Payment Method Distribution -->
+    <div class="main-content-layout">
+        <div class="content-card">
+            <div class="card-header">
+                <h3>Transaction Ledger</h3>
+                <div class="table-controls">
+                    <select class="btn-secondary" style="padding: 8px 15px;">
+                        <option>All Methods</option>
+                        <option>GCash</option>
+                        <option>Cash</option>
+                        <option>GrabPay</option>
+                        <option>Card</option>
+                    </select>
+                    <button class="btn-secondary" style="padding: 8px 15px;">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <table class="fleet-table">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>TRANSACTION ID</th>
+                        <th>PASSENGER</th>
+                        <th>DRIVER</th>
+                        <th>METHOD</th>
+                        <th>AMOUNT</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-12-08 09:15</td>
+                        <td><strong>TXN-90822</strong></td>
+                        <td>Ben Ten</td>
+                        <td>Pedro Penduko</td>
+                        <td><span class="method-badge badge-gcash">GCash</span></td>
+                        <td><strong>₱145.00</strong></td>
+                        <td><span class="status-badge status-available">COMPLETED</span></td>
+                        <td><a href="#" class="btn-refund">
+                            <i class="fas fa-undo"></i> Refund
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>2023-12-08 10:20</td>
+                        <td><strong>TXN-90823</strong></td>
+                        <td>Liza Soberano</td>
+                        <td>Maria Clara</td>
+                        <td><span class="method-badge badge-cash">Cash</span></td>
+                        <td><strong>₱250.00</strong></td>
+                        <td><span class="status-badge status-available">COMPLETED</span></td>
+                        <td><a href="#" class="btn-refund">
+                            <i class="fas fa-undo"></i> Refund
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>2023-12-08 11:45</td>
+                        <td><strong>TXN-90824</strong></td>
+                        <td>Dong Yan</td>
+                        <td>Juan Tamad</td>
+                        <td><span class="method-badge badge-grabpay">GrabPay</span></td>
+                        <td><strong>₱85.50</strong></td>
+                        <td><span class="status-badge status-pending">PENDING</span></td>
+                        <td><a href="#" class="btn-refund">
+                            <i class="fas fa-undo"></i> Refund
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>2023-12-08 12:30</td>
+                        <td><strong>TXN-90825</strong></td>
+                        <td>Sarah G</td>
+                        <td>Pedro Penduko</td>
+                        <td><span class="method-badge badge-card">Card</span></td>
+                        <td><strong>₱320.00</strong></td>
+                        <td><span class="status-badge status-available">COMPLETED</span></td>
+                        <td><a href="#" class="btn-refund">
+                            <i class="fas fa-undo"></i> Refund
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>2023-12-08 13:15</td>
+                        <td><strong>TXN-90826</strong></td>
+                        <td>Vice Ganda</td>
+                        <td>Maria Clara</td>
+                        <td><span class="method-badge badge-gcash">GCash</span></td>
+                        <td><strong>₱175.50</strong></td>
+                        <td><span class="status-badge status-available">COMPLETED</span></td>
+                        <td><a href="#" class="btn-refund">
+                            <i class="fas fa-undo"></i> Refund
+                        </a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sidebar-card">
+            <h3>Payment Method Split</h3>
+            <div class="dist-item">
+                <div class="dist-info">
+                    <span>GCash</span>
+                    <span>₱12,450</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress bg-green" style="width: 51%;"></div>
+                </div>
+                <small style="color: #888; font-size: 12px;">51% of total</small>
+            </div>
+            <div class="dist-item">
+                <div class="dist-info">
+                    <span>Cash</span>
+                    <span>₱8,100</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress bg-blue" style="width: 33%;"></div>
+                </div>
+                <small style="color: #888; font-size: 12px;">33% of total</small>
+            </div>
+            <div class="dist-item">
+                <div class="dist-info">
+                    <span>GrabPay</span>
+                    <span>₱2,450</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress bg-orange" style="width: 10%;"></div>
+                </div>
+                <small style="color: #888; font-size: 12px;">10% of total</small>
+            </div>
+            <div class="dist-item">
+                <div class="dist-info">
+                    <span>Card</span>
+                    <span>₱1,500</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 6%; background: #8b5cf6;"></div>
+                </div>
+                <small style="color: #888; font-size: 12px;">6% of total</small>
+            </div>
+        </div>
+    </div>
+</main>
+
+<?php include('includes/footer.php'); ?>
+=======
 <?php
 session_start();
 // Security check para admin lang
@@ -131,3 +319,4 @@ if (!isset($_SESSION['user_id'])) {
 
 </body>
 </html>
+>>>>>>> 749282eb7b691ce991d83ae99e804a2526595e8c
