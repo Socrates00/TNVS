@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== 'POST') {
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
 }
 
@@ -11,7 +11,7 @@ $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 // Basic validation
 if ($username === '' || $password === '') {
-    header('Location: index.php?error=1');
+    header('Location: login.php?error=1');
     exit();
 }
 
@@ -26,7 +26,7 @@ if ($conn->connect_error) {
         header('Location: admin.php');
         exit();
     }
-    header('Location: index.php?error=1');
+    header('Location: login.php?error=1');
     exit();
 }
 
@@ -41,7 +41,7 @@ if (!$stmt) {
         header('Location: admin.php');
         exit();
     }
-    header('Location: index.php?error=1');
+    header('Location: login.php?error=1');
     $conn->close();
     exit();
 }
@@ -83,6 +83,6 @@ if ($username === 'admin' && $password === 'admin123') {
 }
 
 // Authentication failed
-header('Location: index.php?error=1');
+header('Location: login.php?error=1');
 exit();
 ?>

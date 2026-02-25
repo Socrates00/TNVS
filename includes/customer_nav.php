@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+function getInitials($name) {
+    $words = explode(' ', trim($name));
+    $initials = '';
+    foreach ($words as $word) {
+        $initials .= strtoupper(substr($word, 0, 1));
+    }
+    return $initials ?: 'U';
+}
+
+$initials = getInitials($_SESSION['username'] ?? 'User');
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,6 +35,6 @@
 
     <div class="profile-group">
         <div class="notif-badge"><i class="fas fa-bell"></i></div>
-        <div class="profile-ring">JD</div>
+        <div class="profile-ring"><?php echo $initials; ?></div>
     </div>
 </div>
