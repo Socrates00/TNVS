@@ -65,7 +65,7 @@
                 <input type="tel" name="phone" placeholder="Phone Number (0912...)" required>
             </div>
             <div class="input-group">
-                <i class="fas fa-at"></i>
+                <i class="fas fa-user"></i>
                 <input type="text" name="username" placeholder="Choose Username" required>
             </div>
             <div class="input-group">

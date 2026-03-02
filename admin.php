@@ -20,11 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_vehicle'])) {
     exit();
 }
 
-// Handle delete vehicle
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_vehicle'])) {
+// Handle update vehicle status
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $id = $_POST['vehicle_id'];
-    $stmt = $conn->prepare("DELETE FROM vehicles WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $status = $_POST['status'];
+    $stmt = $conn->prepare("UPDATE vehicles SET status = ? WHERE id = ?");
+    $stmt->bind_param("si", $status, $id);
     $stmt->execute();
     $stmt->close();
     header("Location: admin.php");
@@ -35,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_vehicle'])) {
 $active_vehicles = $conn->query("SELECT COUNT(*) as count FROM vehicles WHERE status = 'available'")->fetch_assoc()['count'];
 $total_vehicles = $conn->query("SELECT COUNT(*) as count FROM vehicles")->fetch_assoc()['count'];
 $on_trip = $conn->query("SELECT COUNT(*) as count FROM vehicles WHERE status = 'on_trip'")->fetch_assoc()['count'];
+$maintenance_vehicles = $conn->query("SELECT COUNT(*) as count FROM vehicles WHERE status = 'maintenance'")->fetch_assoc()['count'];
 $pending_requests = $conn->query("SELECT COUNT(*) as count FROM ride_requests WHERE status = 'pending'")->fetch_assoc()['count'];
 
 // Fetch vehicles
@@ -44,6 +46,139 @@ $vehicles = $conn->query("SELECT * FROM vehicles LIMIT 10");
 <?php include('includes/header.php'); ?>
 
 <link rel="stylesheet" href="dashboard.css">
+
+<style>
+    .modal {
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        width: 90%;
+        max-width: 400px;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        line-height: 20px;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+    }
+
+    .modal-content h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 22px;
+        color: #1a1a1a;
+    }
+
+    .modal-content .form-group {
+        margin-bottom: 20px;
+    }
+
+    .modal-content label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .modal-content select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-edit {
+        padding: 8px 16px;
+        background-color: #3b5998;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+    .btn-edit:hover {
+        background-color: #2d4373;
+        box-shadow: 0 4px 12px rgba(59, 89, 152, 0.3);
+    }
+
+    .btn-update {
+        width: 100%;
+        padding: 12px;
+        background-color: #00b14f;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+        margin-bottom: 10px;
+    }
+
+    .btn-update:hover {
+        background-color: #009440;
+        box-shadow: 0 4px 12px rgba(0, 177, 79, 0.3);
+    }
+
+    .btn-cancel {
+        width: 100%;
+        padding: 12px;
+        background-color: #e0e0e0;
+        color: #333;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .btn-cancel:hover {
+        background-color: #d0d0d0;
+    }
+
+    .progress.bg-orange {
+        background-color: #f97316;
+    }
+</style>
 
 <main class="container">
     <div class="header-flex">
@@ -135,10 +270,7 @@ $vehicles = $conn->query("SELECT * FROM vehicles LIMIT 10");
                         <td><span class="status-badge status-<?php echo str_replace('_', '-', $vehicle['status']); ?>"><?php echo strtoupper(str_replace('_', ' ', $vehicle['status'])); ?></span></td>
                         <td><?php echo htmlspecialchars($vehicle['last_maintenance']); ?></td>
                         <td>
-                            <form method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to remove this vehicle?');">
-                                <input type="hidden" name="vehicle_id" value="<?php echo $vehicle['id']; ?>">
-                                <button type="submit" name="delete_vehicle" class="btn-remove">Remove</button>
-                            </form>
+                            <button type="button" class="btn-edit" onclick="openEditForm(<?php echo $vehicle['id']; ?>, '<?php echo htmlspecialchars($vehicle['status']); ?>')">Edit Status</button>
                         </td>
                     </tr>
                     <?php endwhile; ?>
@@ -156,9 +288,67 @@ $vehicles = $conn->query("SELECT * FROM vehicles LIMIT 10");
                 <div class="dist-info"><span>On Trip</span><span><?php echo $on_trip; ?> Units</span></div>
                 <div class="progress-bar"><div class="progress bg-blue" style="width: <?php echo $total_vehicles > 0 ? ($on_trip / $total_vehicles * 100) : 0; ?>%;"></div></div>
             </div>
+            <div class="dist-item">
+                <div class="dist-info"><span>Maintenance</span><span><?php echo $maintenance_vehicles; ?> Units</span></div>
+                <div class="progress-bar"><div class="progress bg-orange" style="width: <?php echo $total_vehicles > 0 ? ($maintenance_vehicles / $total_vehicles * 100) : 0; ?>%;"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-menu">
+        <h2 class="menu-title">Maintenance & Operations</h2>
+        <div class="feature-grid">
+            <a href="maintenance.php" class="feature-card maintenance-records" title="Maintenance Records">
+                <div class="feature-icon">📋</div>
+                <div class="feature-text">
+                    <h4>Maintenance Records</h4>
+                    <p>Add & view service history & upcoming services calendar</p>
+                </div>
+            </a>
+            <a href="driver_profile.php" class="feature-card driver-management" title="Driver Profile Management">
+                <div class="feature-icon">👤</div>
+                <div class="feature-text">
+                    <h4>Driver Profile Management</h4>
+                    <p>Manage driver profiles & information</p>
+                </div>
+            </a>
+            <a href="analytics.php" class="feature-card cost-analytics" title="Cost Analytics">
+                <div class="feature-icon">📈</div>
+                <div class="feature-text">
+                    <h4>Cost Analytics</h4>
+                    <p>Cost breakdown by vehicle</p>
+                </div>
+            </a>
+            <a href="customer-feedback.php" class="feature-card service-ratings" title="Service Ratings">
+                <div class="feature-icon">⭐</div>
+                <div class="feature-text">
+                    <h4>Service Ratings</h4>
+                    <p>Rate providers & Customer Relationship</p>
+                </div>
+            </a>
         </div>
     </div>
 </main>
+
+<div id="edit-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditForm()">&times;</span>
+        <h2>Edit Vehicle Status</h2>
+        <form method="post" id="edit-form">
+            <input type="hidden" name="vehicle_id" id="edit-vehicle-id">
+            <div class="form-group">
+                <label for="edit-status">Status</label>
+                <select id="edit-status" name="status" required>
+                    <option value="available">Available</option>
+                    <option value="on_trip">On Trip</option>
+                    <option value="maintenance">Maintenance</option>
+                </select>
+            </div>
+            <button type="submit" name="update_status" class="btn-update">Update Status</button>
+            <button type="button" onclick="closeEditForm()" class="btn-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
 
 <script>
 function toggleAddForm() {
@@ -176,6 +366,23 @@ function toggleAddForm() {
         setTimeout(() => {
             form.style.display = 'none';
         }, 300);
+    }
+}
+
+function openEditForm(vehicleId, currentStatus) {
+    document.getElementById('edit-modal').style.display = 'block';
+    document.getElementById('edit-vehicle-id').value = vehicleId;
+    document.getElementById('edit-status').value = currentStatus;
+}
+
+function closeEditForm() {
+    document.getElementById('edit-modal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById('edit-modal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
     }
 }
 </script>

@@ -155,68 +155,81 @@ $initials = getInitials($_SESSION['username'] ?? 'User');
                 </div>
             </div>
         </section>
+
+        <section style="background: white; border: 1px solid #f0f0f0; border-radius: 12px; padding: 25px; margin: 30px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <a href="rate-us.php" style="text-decoration: none; color: inherit; display: block;">
+                <div style="display: flex; align-items: center; gap: 15px; padding: 20px; background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%); border-radius: 10px; cursor: pointer; transition: 0.3s;">
+                    <div style="font-size: 2.5rem;">⭐</div>
+                    <div>
+                        <h3 style="margin: 0 0 5px 0; color: #fff; font-size: 1.2rem;">Rate Us</h3>
+                        <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">Share your feedback and help us improve</p>
+                    </div>
+                    <div style="margin-left: auto; font-size: 1.5rem; color: white;">→</div>
+                </div>
+            </a>
+        </section>
     </div>
 
     <nav class="bottom-nav">
-            <script>
-                // Toggle profile dropdown with keyboard and ARIA support
-                (function(){
-                    var toggle = document.getElementById('profileToggle');
-                    var dropdown = document.getElementById('profileDropdown');
-                    if (!toggle || !dropdown) return;
+        <script>
+            // Toggle profile dropdown with keyboard and ARIA support
+            (function(){
+                var toggle = document.getElementById('profileToggle');
+                var dropdown = document.getElementById('profileDropdown');
+                if (!toggle || !dropdown) return;
 
-                    function closeDropdown() {
-                        dropdown.classList.remove('show');
-                        dropdown.setAttribute('aria-hidden', 'true');
-                        toggle.setAttribute('aria-expanded', 'false');
-                    }
+                function closeDropdown() {
+                    dropdown.classList.remove('show');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
 
-                    function openDropdown() {
-                        dropdown.classList.add('show');
-                        dropdown.setAttribute('aria-hidden', 'false');
-                        toggle.setAttribute('aria-expanded', 'true');
-                    }
+                function openDropdown() {
+                    dropdown.classList.add('show');
+                    dropdown.setAttribute('aria-hidden', 'false');
+                    toggle.setAttribute('aria-expanded', 'true');
+                }
 
-                    toggle.addEventListener('click', function(e){
+                toggle.addEventListener('click', function(e){
+                    e.stopPropagation();
+                    if (dropdown.classList.contains('show')) closeDropdown(); else openDropdown();
+                });
+
+                toggle.addEventListener('keydown', function(e){
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
                         e.stopPropagation();
                         if (dropdown.classList.contains('show')) closeDropdown(); else openDropdown();
-                    });
+                    }
+                });
 
-                    toggle.addEventListener('keydown', function(e){
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            if (dropdown.classList.contains('show')) closeDropdown(); else openDropdown();
-                        }
-                    });
+                // Close when clicking outside
+                document.addEventListener('click', function(){
+                    if (dropdown.classList.contains('show')) closeDropdown();
+                });
 
-                    // Close when clicking outside
-                    document.addEventListener('click', function(){
-                        if (dropdown.classList.contains('show')) closeDropdown();
-                    });
-
-                    // Close on Escape
-                    document.addEventListener('keydown', function(e){
-                        if (e.key === 'Escape' && dropdown.classList.contains('show')) closeDropdown();
-                    });
-                })();
-            </script>
-        <div class="nav-item active">
+                // Close on Escape
+                document.addEventListener('keydown', function(e){
+                    if (e.key === 'Escape' && dropdown.classList.contains('show')) closeDropdown();
+                });
+            })();
+        </script>
+        <a href="home.php" class="nav-item active">
             <i class="fas fa-house"></i>
             <span>Home</span>
-        </div>
-        <div class="nav-item">
+        </a>
+        <a href="activity.php" class="nav-item">
             <i class="fas fa-clock-rotate-left"></i>
             <span>Activity</span>
-        </div>
-        <div class="nav-item">
+        </a>
+        <a href="payment.php" class="nav-item">
             <i class="fas fa-wallet"></i>
             <span>Payment</span>
-        </div>
-        <div class="nav-item">
+        </a>
+        <a href="account.php" class="nav-item">
             <i class="fas fa-user"></i>
             <span>Account</span>
-        </div>
+        </a>
     </nav>
 
 </body>

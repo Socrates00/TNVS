@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 function getInitials($name) {
     $words = explode(' ', trim($name));
@@ -11,15 +10,6 @@ function getInitials($name) {
 
 $initials = getInitials($_SESSION['username'] ?? 'User');
 ?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNVS - Book a Ride</title>
-    <link rel="stylesheet" href="customer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
 
 <div class="header-wrapper">
     <div class="pill-box">
@@ -34,6 +24,9 @@ $initials = getInitials($_SESSION['username'] ?? 'User');
     </div>
 
     <div class="profile-group">
+        <a href="customer_payment_history.php" class="icon-btn" title="Payment History">
+            <i class="fas fa-credit-card"></i>
+        </a>
         <div class="notif-badge"><i class="fas fa-bell"></i></div>
         <div class="profile-ring"><?php echo $initials; ?></div>
     </div>
