@@ -82,7 +82,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 
     <nav class="sidebar-nav">
-        <a href="admin.php" class="<?php echo ($current_page == 'admin.php') ? 'active' : ''; ?>"><i class="fas fa-th-large"></i> Dashboard</a>
+        <a href="admin.php" class="<?php echo ($current_page == 'admin.php') ? 'active' : ''; ?>"><i class="fas fa-th-large"></i> Fleet Management</a>
         <a href="dispatching.php" class="<?php echo ($current_page == 'dispatching.php') ? 'active' : ''; ?>"><i class="fas fa-taxi"></i> Dispatching</a>
         <a href="tracking.php" class="<?php echo ($current_page == 'tracking.php') ? 'active' : ''; ?>"><i class="fas fa-map-marker-alt"></i> Tracking</a>
         <a href="payments.php" class="<?php echo ($current_page == 'payments.php') ? 'active' : ''; ?>"><i class="fas fa-file-invoice-dollar"></i> Payments</a>

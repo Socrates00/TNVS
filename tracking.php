@@ -1,5 +1,18 @@
 <?php
-session_start();
+// Support both admin and customer sessions
+if (session_status() === PHP_SESSION_NONE) {
+    // Try admin session first
+    session_name('ADMIN_SESSION');
+    session_start();
+    
+    // If no admin session, try default customer session
+    if (!isset($_SESSION['user_id'])) {
+        session_destroy();
+        session_name('PHPSESSID');
+        session_start();
+    }
+}
+
 // Security check
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");

@@ -182,7 +182,7 @@ $vehicles = $conn->query("SELECT * FROM vehicles LIMIT 10");
 
 <main class="container">
     <div class="header-flex">
-        <h1 class="dashboard-title">Fleet Dashboard</h1>
+        <h1 class="dashboard-title">Fleet Management</h1>
         <div class="system-badge">SYSTEM LIVE</div>
     </div>
 
@@ -319,11 +319,11 @@ $vehicles = $conn->query("SELECT * FROM vehicles LIMIT 10");
                     <p>Cost breakdown by vehicle</p>
                 </div>
             </a>
-            <a href="customer-feedback.php" class="feature-card service-ratings" title="Service Ratings">
-                <div class="feature-icon">⭐</div>
+            <a href="fuel_management.php" class="feature-card fuel-management" title="Fuel Management">
+                <div class="feature-icon">⛽</div>
                 <div class="feature-text">
-                    <h4>Service Ratings</h4>
-                    <p>Rate providers & Customer Relationship</p>
+                    <h4>Fuel Management</h4>
+                    <p>Track fuel consumption & expenses</p>
                 </div>
             </a>
         </div>
